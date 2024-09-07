@@ -15,5 +15,5 @@ Once airflow is initialized we can start the services:
 
 `docker compose up`
 
-After this is completed the webserver can be viewed at `localhost:8080`
-(To run the *DAG* on your local machine, change the mount sources in the `task2 DockerOperator` in *dag.py*)
+After this is completed the webserver can be viewed at `localhost:8080` <br/>
+(To run the **DAG** on your local machine, change the mount sources in the `task2 DockerOperator` in *dag.py*)
