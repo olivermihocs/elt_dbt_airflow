@@ -1,4 +1,4 @@
-## ELT Project using Docker, PostgreSQL and Airflow
+## ELT Project using Docker, dbt, PostgreSQL and Airflow
 
 The base version of this project can be viewed here: [elt_dbt](https://github.com/olivermihocs/elt_dbt)
 
