@@ -1,0 +1,60 @@
+[0m16:08:22.317476 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000025ADCBFE870>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000025ADEE33DA0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000025ADEE31BB0>]}
+
+
+============================== 16:08:22.330475 | 26477662-ef46-4d7f-8185-e8279b247a82 ==============================
+[0m16:08:22.330475 [info ] [MainThread]: Running with dbt=1.8.6
+[0m16:08:22.331476 [debug] [MainThread]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'write_json': 'True', 'log_cache_events': 'False', 'partial_parse': 'True', 'cache_selected_only': 'False', 'profiles_dir': 'C:\\Users\\Olee\\.dbt', 'version_check': 'True', 'fail_fast': 'False', 'log_path': 'logs', 'warn_error': 'None', 'debug': 'False', 'use_colors': 'True', 'use_experimental_parser': 'False', 'empty': 'None', 'quiet': 'False', 'no_print': 'None', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'invocation_command': 'dbt init', 'introspect': 'True', 'static_parser': 'True', 'target_path': 'None', 'log_format': 'default', 'send_anonymous_usage_stats': 'True'}
+[0m16:08:22.344020 [warn ] [MainThread]: [ConfigFolderDirectory]: Unable to parse dict {'dir': WindowsPath('C:/Users/Olee/.dbt')}
+[0m16:08:22.345019 [info ] [MainThread]: Creating dbt configuration folder at 
+[0m16:08:55.228724 [debug] [MainThread]: Starter project path: C:\projects\elt_dbt\dbt-env\Lib\site-packages\dbt\include\starter_project
+[0m16:08:55.257730 [info ] [MainThread]: 
+Your new dbt project "dbt_postgres" was created!
+
+For more information on how to configure the profiles.yml file,
+please consult the dbt documentation here:
+
+  https://docs.getdbt.com/docs/configure-your-profile
+
+One more thing:
+
+Need help? Don't hesitate to reach out to us via GitHub issues or on Slack:
+
+  https://community.getdbt.com/
+
+Happy modeling!
+
+[0m16:08:55.258730 [info ] [MainThread]: Setting up your profile.
+[0m16:10:42.535138 [info ] [MainThread]: Profile dbt_postgres written to C:\Users\Olee\.dbt\profiles.yml using target's profile_template.yml and your supplied values. Run 'dbt debug' to validate the connection.
+[0m16:10:42.536139 [debug] [MainThread]: Command `dbt init` succeeded at 16:10:42.536139 after 140.29 seconds
+[0m16:10:42.537138 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000025ADF2D42C0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000025ADF75A510>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000025ADEE31BB0>]}
+[0m16:10:42.537138 [debug] [MainThread]: Flushing usage events
+[0m16:19:16.096418 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000021B38CC4C20>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000021B37840EC0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000021B3AD637D0>]}
+
+
+============================== 16:19:16.102418 | 36bd583b-925b-4a41-b491-28192d3cfccd ==============================
+[0m16:19:16.102418 [info ] [MainThread]: Running with dbt=1.8.6
+[0m16:19:16.102418 [debug] [MainThread]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'write_json': 'True', 'log_cache_events': 'False', 'partial_parse': 'True', 'cache_selected_only': 'False', 'warn_error': 'None', 'version_check': 'True', 'profiles_dir': 'C:\\Users\\Olee\\.dbt', 'log_path': 'logs', 'fail_fast': 'False', 'debug': 'False', 'use_colors': 'True', 'use_experimental_parser': 'False', 'empty': 'None', 'quiet': 'False', 'no_print': 'None', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'static_parser': 'True', 'invocation_command': 'dbt init', 'log_format': 'default', 'target_path': 'None', 'introspect': 'True', 'send_anonymous_usage_stats': 'True'}
+[0m16:19:16.115436 [warn ] [MainThread]: [ConfigFolderDirectory]: Unable to parse dict {'dir': WindowsPath('C:/Users/Olee/.dbt')}
+[0m16:19:16.115943 [info ] [MainThread]: Creating dbt configuration folder at 
+[0m16:19:53.485032 [debug] [MainThread]: Starter project path: C:\projects\elt_dbt\dbt-env\Lib\site-packages\dbt\include\starter_project
+[0m16:19:53.513612 [info ] [MainThread]: 
+Your new dbt project "dbt_project" was created!
+
+For more information on how to configure the profiles.yml file,
+please consult the dbt documentation here:
+
+  https://docs.getdbt.com/docs/configure-your-profile
+
+One more thing:
+
+Need help? Don't hesitate to reach out to us via GitHub issues or on Slack:
+
+  https://community.getdbt.com/
+
+Happy modeling!
+
+[0m16:19:53.514612 [info ] [MainThread]: Setting up your profile.
+[0m16:20:38.668579 [info ] [MainThread]: Profile dbt_project written to C:\Users\Olee\.dbt\profiles.yml using target's profile_template.yml and your supplied values. Run 'dbt debug' to validate the connection.
+[0m16:20:38.669579 [debug] [MainThread]: Command `dbt init` succeeded at 16:20:38.668579 after 82.64 seconds
+[0m16:20:38.669579 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000021B3A362630>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000021B3B172270>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000021B3A4F6900>]}
+[0m16:20:38.669579 [debug] [MainThread]: Flushing usage events

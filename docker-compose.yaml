@@ -1,0 +1,149 @@
+services:
+  src_postgres:
+    image: postgres:15.7
+    ports:
+      - "5433:5432" #exposed port, to access on localhost
+    networks:
+      - elt_network
+    environment:
+      POSTGRES_DB : src_db
+      POSTGRES_USER : postgres #default user and pw
+      POSTGRES_PASSWORD : secret
+    volumes:
+      - "./src_db_init:/docker-entrypoint-initdb.d"
+
+  dest_postgres:
+    image: postgres:15.7
+    ports:
+      - "5434:5432" #exposed port, to access on localhost
+    networks:
+      - elt_network
+    environment:
+      POSTGRES_DB : dest_db
+      POSTGRES_USER : postgres #default user and pw
+      POSTGRES_PASSWORD : secret
+
+  # These are not used in this version, we define them with the help of Airflow
+
+  # elt_script:
+  #   build:
+  #     context: ./elt
+  #     dockerfile: Dockerfile
+  #   command: [ "python" , "script.py" ]
+  #   networks:
+  #     - elt_network
+  #   depends_on:
+  #     - src_postgres
+  #     - dest_postgres
+  # dbt:
+  #   image: ghcr.io/dbt-labs/dbt-postgres:1.4.7
+  #   command:
+  #     [
+  #       "run",
+  #       "--profiles-dir",
+  #       "/root",
+  #       "--project-dir",
+  #       "/dbt",
+  #       "--full-refresh"
+  #     ]
+  #   networks:
+  #     - elt_network
+  #   volumes:
+  #     - ./dbt_project:/dbt
+  #     - ~/.dbt:/root
+  #   depends_on:
+  #     elt_script:
+  #         condition: service_completed_successfully
+  #   environment:
+  #     DBT_PROFILE: default
+  #     DBT_TARGET: dev
+  
+  #db for airflow, metadata service
+  metadata_service:
+    image: postgres:15.7
+    networks:
+      - elt_network
+    environment:
+      - POSTGRES_USER=airflow 
+      - POSTGRES_PASSWORD=airflow
+      - POSTGRES_DB=airflow
+  
+  #initialization for airflow (using the metadata)
+  init-airflow:
+    image: apache/airflow:latest
+    depends_on:
+      - metadata_service
+    networks:
+      - elt_network
+    environment:
+      - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql://airflow:airflow@metadata_service/airflow
+    command: >
+      bash -c "airflow db init && airflow users create --username airflow --password password --firstname Oliver --lastname Mihocs --role Admin --email admin@example.org"
+  
+  #UI to access
+  webserver:
+    build:
+      context: .
+      dockerfile : Dockerfile
+    user: root
+    depends_on:
+      - metadata_service
+    networks:
+      - elt_network
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - ./airflow/dags:/opt/airflow/dags
+      - ./elt:/opt/airflow/elt
+      - ./dbt_project:/opt/dbt
+      - ~/.dbt:/root/.dbt
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - LOAD_EX=n
+      - EXECUTOR=Local
+      - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql://airflow:airflow@metadata_service/airflow
+      - AIRFLOW__CORE__FERNET_KEY=wLUAzAizy8uni7ThKlkyltj4HjaXObzbnNaVNFaTLlk=
+      - AIRFLOW__WEBSERVER_DEFAULT__USER_USERNAME=airflow
+      - AIRFLOW__WEBSERVER_DEFAULT__USER_PASSWORD=password
+      - AIRFLOW_WWW_USER_USERNAME=airflow
+      - AIRFLOW_WWW_USER_PASSWORD=password
+      - AIRFLOW__WEBSERVER__SECRET_KEY=secret
+    ports:
+      - "8080:8080"
+    command: webserver
+
+  #Schedule jobs
+  scheduler:
+    build:
+      context: .
+      dockerfile : Dockerfile
+    user: root
+    depends_on:
+      - metadata_service
+    networks:
+      - elt_network
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - ./airflow/dags:/opt/airflow/dags
+      - ./elt:/opt/airflow/elt
+      - ./dbt_project:/opt/dbt
+      - ~/.dbt:/root/.dbt
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - LOAD_EX=n
+      - EXECUTOR=Local
+      - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql://airflow:airflow@metadata_service/airflow
+      - AIRFLOW__CORE__FERNET_KEY=wLUAzAizy8uni7ThKlkyltj4HjaXObzbnNaVNFaTLlk=
+      - AIRFLOW__WEBSERVER_DEFAULT__USER_USERNAME=airflow
+      - AIRFLOW__WEBSERVER_DEFAULT__USER_PASSWORD=password
+      - AIRFLOW_WWW_USER_USERNAME=airflow
+      - AIRFLOW_WWW_USER_PASSWORD=password
+      - AIRFLOW__WEBSERVER__SECRET_KEY=secret
+    ports:
+      - 8081:8080
+    command: scheduler
+
+networks:
+  elt_network:
+    driver: bridge

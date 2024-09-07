@@ -1,0 +1,14 @@
+version: 2
+
+sources:
+  - name: dest_db
+    description: "Raw data from the dest PostgreSQL DB"
+    database: dest_db
+    schema: public
+    tables:
+      - name: cars
+        description: "List of cars."
+      - name: manufacturers
+        description: "List of manufacturers."
+      - name: manufacturers_cars
+        description: "Mapping between manufacturers and cars."
